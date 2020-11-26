@@ -1,0 +1,39 @@
+body{
+  /* background: #333; */
+}
+@media screen and (max-width: 763px){
+  .preload{
+      height: 10%;
+      width: 50%;
+      position: absolute;
+      top: 40%;
+  }
+
+  .loader-frame{
+      position: relative;
+      /* left: 50%!important; */
+  }
+}
+
+@media screen and (max-width: 1440px){
+  .preload{
+      height: 10%;
+      width: 50%;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+  }
+
+  .loader-frame{
+      width: 20px;
+      height: 20px;
+      position: relative;
+      top: 50%;
+      left: -15px;
+  }
+  
+  .logo{
+      position: absolute;
+  }
+
+}
