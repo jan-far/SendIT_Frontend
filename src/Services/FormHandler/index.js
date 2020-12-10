@@ -1,29 +1,41 @@
-import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import Place { geocodeByPlaceId, geocodeByAddress } from 'react-places-autocomplete'
+import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 
 function FormHandler() {
   const { register, handleSubmit, errors, control } = useForm();
 
-  const [phone, setPhone] = useState();
-  console.log(phone);
+  const [phone, setPhone] = useState()
+
   const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    // password: "",
-    password2: "",
-    phone: 0,
-    location: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    'confirm password': '',
+    location: '',
+    recipient: '',
+    destination: '',
+    weight: '',
   });
+
   const handleChange = (e) => {
-    console.log(e)
     const { name, value } = e.target;
     setValues({
       ...values,
       [name]: value,
     });
-    console.log(name, value);
+    // console.log(name, value);
+  };
+
+  const reset = () => {
+    setValues({
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      'confirm password': '',
+      location: '',
+    });
   };
 
   return {
@@ -31,6 +43,7 @@ function FormHandler() {
     handleChange,
     handleSubmit,
     values,
+    reset,
     errors,
     Controller,
     phone,
