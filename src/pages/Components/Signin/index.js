@@ -1,5 +1,6 @@
-import React from "react";
-import FormHandler from "../../../Services/FormHandler";
+import React, { useState } from 'react';
+import FormHandler from '../../../Services/FormHandler';
+import './styles.css';
 import {
   Container,
   Form,
@@ -11,18 +12,70 @@ import {
   FormWrapper,
   Icon,
   Image,
+  Spinner,
   Text,
-} from "./SignInElements";
-import logo from "../../../images/logo.jpg";
+  Text2,
+  Goto,
+} from './SignInElements';
+import logo from '../../../images/logo.jpg';
+import { Error } from '../../../Services/FormHandler/validateInfo';
+import { post_request } from '../../../Services/utils/fetch';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setCookie, clearCookie } from '../../../Services/utils/helpers';
+import { useHistory } from 'react-router-dom';
+
+toast.configure({
+  autoClose: 5000,
+  closeButton: true,
+  draggable: false,
+  position: 'bottom-left',
+  hideProgressBar: true,
+});
 
 const SignInPage = () => {
-  const {register, handleSubmit, handleChange, values } = FormHandler();
+  const [loading, setLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    handleChange,
+    values,
+    reset,
+    errors,
+  } = FormHandler();
   const { email, password } = values;
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const history = useHistory();
+
+  const check = () => {};
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    clearCookie()
+    reset();
+    try {
+      const req = await post_request(data, '/auth/signin');
+      const response = await req.json();
+      console.log(response);
+
+      if (response === undefined || req.status === 400) {
+        toast.error(`${response.message}`);
+        setLoading(false);
+      } else {
+        setCookie('session_', response.Profile.token, 1);
+        toast.success(`${response.message}`);
+        setLoading(false);
+
+        setTimeout(() => {
+          history.push('/dashboard');
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
+
   return (
     <>
       <Container>
@@ -40,22 +93,41 @@ const SignInPage = () => {
                 type="email"
                 value={email}
                 placeholder="Enter Your Email Address"
-                required
-                ref={register}
+                ref={register({
+                  required: 'Email field is required',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'Invalid email address',
+                  },
+                })}
                 onChange={handleChange}
-              ></FormInput>
+              />
+              {Error(errors, 'email')}
+
               <FormLabel htmlFor="for">Password</FormLabel>
               <FormInput
                 name="password"
                 type="password"
                 value={password}
                 placeholder="Enter Your Password"
-                required
-                ref={register}
+                ref={register({
+                  required: 'Password field is required',
+                  minLength: {
+                    value: 7,
+                    message: 'Password must be of atleast 7 characters',
+                  },
+                })}
                 onChange={handleChange}
-              ></FormInput>
-              <FormButton type="submit">SignIn</FormButton>
+              />
+              {Error(errors, 'password')}
+
+              <FormButton type="submit">
+                {loading ? <Spinner /> : 'SignIn'}
+              </FormButton>
               <Text>Forgot Password?</Text>
+              <Text2>
+                Don't have an account? <Goto to="/signup">SignUp</Goto>
+              </Text2>
             </Form>
           </FormContent>
         </FormWrapper>
