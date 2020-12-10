@@ -1,13 +1,16 @@
-import React from "react";
-import logo from "../../../images/logo.jpg";
-import FormHandler from "../../../Services/FormHandler";
-import "react-phone-number-input/style.css";
-import "./style.css";
-import PhoneInput, {
-  // formatPhoneNumber,
-  // formatPhoneNumberIntl,
-  isValidPhoneNumber,
-} from "react-phone-number-input";
+import React, { useState } from 'react';
+import logo from '../../../images/logo.jpg';
+import FormHandler from '../../../Services/FormHandler';
+import 'react-phone-number-input/style.css';
+import './style.css';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import LocationSearchInput from '../../../Components/GooglePlace';
+import { post_request } from '../../../Services/utils/fetch';
+import { Error } from '../../../Services/FormHandler/validateInfo';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { setCookie } from '../../../Services/utils/helpers'
+import { useHistory } from 'react-router-dom';
 import {
   Container,
   Form,
@@ -17,12 +20,24 @@ import {
   FormInput,
   FormLabel,
   FormWrapper,
+  Goto,
   Icon,
   Image,
+  Spinner,
   Text,
-} from "./SignUpElements";
+  Text2,
+} from './SignUpElements';
+
+toast.configure({
+  position: 'bottom-left',
+  autoClose: 5000,
+  closeButton: true,
+  draggable: false,
+  hideProgressBar: true,
+})
 
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -32,15 +47,46 @@ const SignUp = () => {
     setPhone,
     Controller,
     control,
+    reset,
+    errors,
   } = FormHandler();
-  const { email, password, password2, location } = values;
+  const { firstname, lastname, email, password, location } = values;
 
-  const onSubmit = (data) => {
+  const history = useHistory();
+
+  const onSubmit = async (data) => {
     console.log(data);
+    setLoading(true);
+    reset();
+    try {
+      const req = await post_request(data, '/auth/signup');
+      const response = await req.json();
+      console.log(response);
+
+      if (response === undefined || req.status === 400) {
+        toast.error(`${response.message}`)
+        setLoading(false)
+      } else {
+        toast.success(`${response.message}`);
+        setLoading(false);
+        setCookie('session_', response.Token)
+
+        setTimeout(() => {
+          history.push('/dashboard');
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const callBack = (autoCompleteData) => {
-    console.log(autoCompleteData)
+  const validatePhone = (phone) => {
+    const compare = phone
+      ? isValidPhoneNumber(phone)
+        ? undefined
+        : 'Invalid phone number'
+      : 'Phone number required';
+    return phone && compare;
   };
 
   return (
@@ -58,49 +104,82 @@ const SignUp = () => {
               <FormInput
                 name="firstname"
                 type="text"
-                value={password}
+                value={firstname}
                 placeholder="Enter Your First Name"
-                required
-                ref={register}
+                ref={register({
+                  required: 'First name Cannot be empty!',
+                  minLength: {
+                    value: 2,
+                    message: 'first name should be 2 or more characters long',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'Name too long, max of 20 characters',
+                  },
+                })}
                 onChange={handleChange}
               />
+              {Error(errors, 'firstname')}
+  
               <FormLabel htmlFor="for">Last Name</FormLabel>
               <FormInput
                 name="lastname"
                 type="text"
-                value={password}
+                value={lastname}
                 placeholder="Enter Your Last Name"
-                required
-                ref={register}
+                ref={register({
+                  required: 'Fast name Cannot be empty!',
+                  minLength: {
+                    value: 2,
+                    message: 'last name should be 2 or more characters long',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'Name too long, max of 20 characters',
+                  },
+                })}
                 onChange={handleChange}
               />
+              {Error(errors, 'lastname')}
+
               <FormLabel htmlFor="for">Email</FormLabel>
               <FormInput
                 name="email"
                 type="email"
                 value={email}
                 placeholder="Enter Your Email Address"
-                required
-                ref={register}
+                ref={register({
+                  required: 'Email field is required',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'invalid email address',
+                  },
+                })}
                 onChange={handleChange}
               />
+              {Error(errors, 'email')}
               <FormLabel htmlFor="for">Password</FormLabel>
               <FormInput
                 name="password"
                 type="password"
                 value={password}
                 placeholder="Enter Your Password"
-                required
-                ref={register}
+                ref={register({
+                  required: 'Password field is required',
+                  minLength: {
+                    value: 7,
+                    message: 'Password must be of atleast 7 characters',
+                  },
+                })}
                 onChange={handleChange}
               />
+              {Error(errors, 'password')}
               <FormLabel htmlFor="for">Repeat Password</FormLabel>
               <FormInput
                 name="confirm password"
                 type="password"
-                value={password2}
+                value={password}
                 placeholder="Re-enter Your Password"
-                required
                 ref={register}
                 onChange={handleChange}
               />
@@ -109,40 +188,44 @@ const SignUp = () => {
                 name="phone"
                 as={
                   <PhoneInput
+                    value={phone}
+                    onChange={setPhone}
                     type="tel"
                     className="phone"
-                    value={phone}
-                    inputRef={register}
                     placeholder="Enter Your Phone Number"
-                    required
                     defaultCountry="NG"
                     withCountryCallingCode
-                    onChange={setPhone}
-                    error={
-                      phone
-                        ? isValidPhoneNumber(phone)
-                          ? undefined
-                          : "Invalid phone number"
-                        : "Phone number required"
-                    }
-                    rules={{ required: true }}
                   />
                 }
+                rules={{
+                  required: 'Enter a valid phone number',
+                  validate: { validatePhone },
+                }}
                 defaultValue=""
                 control={control}
               />
+              {Error(errors, 'phone')}
+
               <FormLabel htmlFor="for">Location</FormLabel>
-              {/* <FormInput
+              <Controller
                 name="location"
-                type="text"
-                value={location}
-                placeholder="Enter Your Location"
-                required
-                ref={register}
-                onChange={handleChange}
-              /> */}
-              <FormButton type="submit">SignIn</FormButton>
+                as={
+                  <LocationSearchInput
+                    value={location}
+                    onChange={handleChange}
+                  />
+                }
+                rules={{ required: 'Location field cannot be empty' }}
+                control={control}
+                defaultValue=""
+              />
+              {Error(errors, 'location')}
+
+              <FormButton type="submit">
+                {loading ? <Spinner /> : 'SignIn'}
+              </FormButton>
               <Text>Forgot Password?</Text>
+              <Text2>Already have an account? <Goto to='/signin'>SignIn</Goto></Text2>
             </Form>
           </FormContent>
         </FormWrapper>
