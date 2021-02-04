@@ -32,7 +32,7 @@ class LocationSearchInput extends Component {
                 <PlaceSearchContainer>
                   {loading && <Float>Loading...</Float>}
 
-                  {suggestions.map((suggestion) => {
+                  {suggestions.map((suggestion, i) => {
                     const style = suggestion.active
                       ? {
                           padding: '5px 0px',
@@ -46,7 +46,7 @@ class LocationSearchInput extends Component {
                         };
                     return (
                       <Float
-                        key={suggestion.placeId}
+                        key={(i)}
                         {...getSuggestionItemProps(suggestion, { style })}
                       >
                         <Float key={suggestion.placeId}>

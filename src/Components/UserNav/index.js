@@ -1,3 +1,4 @@
+import { Avatar, Zoom } from '@material-ui/core';
 import React from 'react';
 import { FaBars, FaUser } from 'react-icons/fa';
 import {
@@ -33,6 +34,7 @@ const UserNav = ({
   forth,
   toForth,
 }) => {
+
   return (
     <>
       <NavHeader>
@@ -46,25 +48,53 @@ const UserNav = ({
           </Icon>
           <SidebarWrapper>
             <SidebarMenu>
-              <SidebarLink to="/" onClick={toggle}>
+              <SidebarLink show="true" to="/" onClick={toggle}>
                 Home
               </SidebarLink>
-              <SidebarLink show={toFirst ? true : false} to={({toFirst}) => (toFirst ? {toFirst} : undefined)} onClick={toggle}>
+              <SidebarLink
+                show={toFirst}
+                to={toFirst ? toFirst : ''}
+                onClick={toggle}
+              >
                 {first}
               </SidebarLink>
-              <SidebarLink  show={toSecond ? true : false} to={({toSecond}) => (toSecond ? {toSecond} : undefined)} onClick={toggle}>
+              <SidebarLink
+                show={toSecond}
+                to={toSecond ? toSecond : ''}
+                onClick={toggle}
+              >
                 {second}
               </SidebarLink>
-              <SidebarLink  show={toThird ? true : false} to={({toThird}) => (toThird ? {toThird} : undefined)} onClick={toggle}>
+              <SidebarLink
+                show={toThird}
+                to={toThird ? toThird : ''}
+                onClick={toggle}
+              >
                 {third}
               </SidebarLink>
-              <SidebarLink  show={toForth ? true : false} to={({toForth}) => (toForth ? {toForth} : undefined)} onClick={toggle}>
+              <SidebarLink
+                show={toForth}
+                to={toForth ? toForth : ''}
+                onClick={toggle}
+              >
                 {forth}
               </SidebarLink>
             </SidebarMenu>
             <SideUser>
-              <FaUser />
-              <UserDetails>{username}</UserDetails>
+              {username ? (
+                <>
+                  <Zoom in={true}>
+                    <Avatar alt="user logo" style={{ color: 'green' }}>
+                      {username[0]}
+                    </Avatar>
+                  </Zoom>
+                  <UserDetails>{username}</UserDetails>
+                </>
+              ) : (
+                <>
+                  <FaUser /> <UserDetails>User</UserDetails>{' '}
+                </>
+              )}
             </SideUser>
           </SidebarWrapper>
         </SidebarContainer>
@@ -72,24 +102,46 @@ const UserNav = ({
         <Info>
           <Menu>
             <MenuItem>
-              <MenuLink to="/">Home</MenuLink>
+              <MenuLink show="true" to="/">
+                Home
+              </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink  show={toFirst ? true : false} to={({toFirst}) => (toFirst ? {toFirst} : undefined)}>{first}</MenuLink>
+              <MenuLink show={toFirst} to={toFirst ? toFirst : ''}>
+                {first}
+              </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink  show={toSecond ? true : false} to={({toSecond}) => (toSecond ? {toSecond} : undefined)}>{second}</MenuLink>
+              <MenuLink show={toSecond} to={toSecond ? toSecond : ''}>
+                {second}
+              </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink  show={toThird ? true : false} to={({toThird}) => (toThird ? {toThird} : undefined)}>{third}</MenuLink>
+              <MenuLink show={toThird} to={toThird ? toThird : ''}>
+                {third}
+              </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink  show={toForth ? true : false} to={({toForth}) => (toForth ? {toForth} : undefined)}>{forth}</MenuLink>
+              <MenuLink show={toForth} to={toForth ? toForth : ''}>
+                {forth}
+              </MenuLink>
             </MenuItem>
           </Menu>
           <User>
-            <FaUser />
-            <UserDetails>{username}</UserDetails>
+            {username ? (
+              <>
+                <Zoom in={true}>
+                  <Avatar alt="user logo" style={{ color: 'green' }}>
+                    {username[0]}
+                  </Avatar>
+                </Zoom>
+                <UserDetails>{username}</UserDetails>
+              </>
+            ) : (
+              <>
+                <FaUser /> <UserDetails>User</UserDetails>{' '}
+              </>
+            )}
           </User>
         </Info>
       </NavHeader>

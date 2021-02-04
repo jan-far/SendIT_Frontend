@@ -1,35 +1,14 @@
 import React from 'react';
 import { useTable } from 'react-table';
-import { Tbl, Td, Th, Thead, Tbody } from './TableElements';
+import { Tbl, Td, Th, Thead } from './TableElements';
 
-const columns = [
-  {
-    Header: "Recipient",
-    accessor: "recipient",
-  },
-  {
-    Header: "Weight",
-    accessor: "weight",
-  },
-  {
-    Header: "Destination",
-    accessor: "destination",
-  },
-  {
-    Header: "Location",
-    accessor: "location",
-  },
-  {
-    Header: "Phone",
-    accessor: "phone",
-  },
-  {
-    Header: "Price",
-    accessor: 'price',
+const editTable = (row, i) => {
+  if (row === i) {
+    console.log(row.cells[7])
   }
-]
+}
 
-const Table = ({ data }) => {
+const Table = ({ data, columns, edit, index }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -48,11 +27,7 @@ const Table = ({ data }) => {
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <Th
-                {...column.getHeaderProps()}
-              >
-                {column.render('Header')}
-              </Th>
+              <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
             ))}
           </tr>
         ))}
@@ -60,18 +35,20 @@ const Table = ({ data }) => {
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row);
+          // console.log(index, row)
+          // edit ? 
+          editTable(row, index)
+
           return (
             <tr key={i} {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <Td {...cell.getCellProps()}
-                  >
-                    {cell.render('Cell')}
-                  </Td>
-                );
-              })}
+              {row.cells.map((cell, i) => {
+                // console.log(cell)
+                
+                // edit ? <>cell.column.Cell(() => <button><FaCheck /></button>)</>: 
+               return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>;
+        })}
             </tr>
-          );
+            );
         })}
       </tbody>
     </Tbl>

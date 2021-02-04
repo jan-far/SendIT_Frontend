@@ -53,7 +53,7 @@ export const MenuItem = styled.li`
 `;
 
 export const MenuLink = styled(Link)`
-  display: ${({show}) => (show ? 'flex' : 'none')};
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   color: #fff;
   align-items: center;
   text-decoration: none;
@@ -61,8 +61,11 @@ export const MenuLink = styled(Link)`
   height: 100%;
   cursor: pointer;
 
-  &.active {
-    border-bottom: 3px solid #01bf71;
+  &:hover {
+    padding: 0 14px;
+    box-shadow: 0 0 10px lightblue;
+    border: outset lightblue;
+    transition: 0.2s ease-in-out;
   }
 `;
 
@@ -158,7 +161,7 @@ export const SidebarMenu = styled.ul`
 `;
 
 export const SidebarLink = styled(Link)`
-  display: ${({show}) => (show ? 'flex' : 'none')};
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;

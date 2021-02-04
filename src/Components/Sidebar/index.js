@@ -1,4 +1,6 @@
 import React from 'react';
+import { useContext } from 'react';
+import { HomepageContext } from '../../Contexts/Homepage';
 import {
   SidebarContainer,
   CloseIcon,
@@ -11,7 +13,9 @@ import {
   SidebarSignup,
 } from './SidebarElements'
 
-const Sidebar = ({ isOpen, toggle }) => {
+const Sidebar = () => {
+  const { isOpen, toggle } = useContext(HomepageContext)
+
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle} >

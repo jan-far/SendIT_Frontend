@@ -1,6 +1,10 @@
 // import car from '../../images/logo.jpg'
-import performance from '../../images/logo.jpg'
-import data from '../../images/logo.jpg'
+// import performance from '../../images/logo.jpg'
+// import data from '../../images/logo.jpg'
+const data  = './images/logo.jpg';
+const performance  = './images/logo.jpg';
+
+
 
 export const homeObjOne = {
   id: 'about',

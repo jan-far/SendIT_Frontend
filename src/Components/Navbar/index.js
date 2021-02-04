@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../../images/logo.jpg';
 import { FaBars } from 'react-icons/fa'
 import {
   Nav,
@@ -15,8 +14,12 @@ import {
   NavBtnLink,
   SignUp
 } from './NavbarElements'
+import { useContext } from 'react';
+import { HomepageContext } from '../../Contexts/Homepage';
+const logo  = './images/logo.jpg';
 
-const Navbar = ({ toggle }) => {
+const Navbar = () => {
+  const { toggle } = useContext(HomepageContext)
   const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {

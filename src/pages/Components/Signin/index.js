@@ -17,13 +17,14 @@ import {
   Text2,
   Goto,
 } from './SignInElements';
-import logo from '../../../images/logo.jpg';
 import { Error } from '../../../Services/FormHandler/validateInfo';
 import { post_request } from '../../../Services/utils/fetch';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setCookie, clearCookie } from '../../../Services/utils/helpers';
 import { useHistory } from 'react-router-dom';
+
+const logo  = './images/logo.jpg';
 
 toast.configure({
   autoClose: 5000,
@@ -48,8 +49,6 @@ const SignInPage = () => {
 
   const history = useHistory();
 
-  const check = () => {};
-
   const onSubmit = async (data) => {
     setLoading(true);
     clearCookie()
@@ -57,7 +56,6 @@ const SignInPage = () => {
     try {
       const req = await post_request(data, '/auth/signin');
       const response = await req.json();
-      console.log(response);
 
       if (response === undefined || req.status === 400) {
         toast.error(`${response.message}`);

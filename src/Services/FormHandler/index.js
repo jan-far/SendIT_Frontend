@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 function FormHandler() {
-  const { register, handleSubmit, errors, control } = useForm();
+  const { register, handleSubmit, errors, control, reset } = useForm();
 
   const [phone, setPhone] = useState()
 
-  const [values, setValues] = useState({
+  const [values, setVal] = useState({
     firstname: '',
     lastname: '',
     email: '',
@@ -20,22 +20,28 @@ function FormHandler() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setValues({
+    setVal({
       ...values,
       [name]: value,
     });
-    // console.log(name, value);
   };
 
-  const reset = () => {
-    setValues({
+  const resetInput = (e) => {
+    setVal({
       firstname: '',
       lastname: '',
       email: '',
       password: '',
       'confirm password': '',
       location: '',
+      destination: '',
+      weight: '',
+      recipient: '',
     });
+
+    setPhone({
+      phone: '',
+    })
   };
 
   return {
@@ -44,6 +50,7 @@ function FormHandler() {
     handleSubmit,
     values,
     reset,
+    resetInput,
     errors,
     Controller,
     phone,

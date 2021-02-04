@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from '../../../images/logo.jpg';
 import FormHandler from '../../../Services/FormHandler';
 import 'react-phone-number-input/style.css';
 import './style.css';
@@ -28,6 +27,8 @@ import {
   Text2,
 } from './SignUpElements';
 
+const logo  = './images/logo.jpg';
+
 toast.configure({
   position: 'bottom-left',
   autoClose: 5000,
@@ -55,7 +56,6 @@ const SignUp = () => {
   const history = useHistory();
 
   const onSubmit = async (data) => {
-    console.log(data);
     setLoading(true);
     reset();
     try {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { animateScroll as scroll } from 'react-scroll';
-import logo from '../../images/logo.jpg';
+// import logo from '../../images/logo.jpg';
 import {
   FooterContainer,
   FooterWrap,
@@ -18,6 +18,9 @@ import {
   SocialIcons,
   SocialLogo,
 } from './FooterElements'
+
+const logo  = './images/logo.jpg';
+
 
 const Footer = () => {
   const toggleHome = () => {

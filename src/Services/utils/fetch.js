@@ -8,7 +8,6 @@ const GetHostUrl = () => {
 };
 
 const url = GetHostUrl();
-// const token = getCookie('session_');
 
 export const post_request = async (details, route) => {
   try {
@@ -25,7 +24,9 @@ export const post_request = async (details, route) => {
   }
 };
 
-export const get_request = async (route, token) => {
+export const get_request = async (route) => {
+  const token = getCookie('session_');
+
   try {
     const requestData = await fetch(`${url}${route}`, {
       headers: {

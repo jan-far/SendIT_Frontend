@@ -1,6 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loading from '../Components/LoadingPage';
+import CreateParcelProvider from '../Contexts/CreateParcel';
+import DashboardProvider from '../Contexts/Dashboard';
 
 const LoadComponents = (name) => {
   return lazy(() => import(`./Components/${name}`));
@@ -10,7 +12,8 @@ const Homepage = LoadComponents('HomePage');
 const SignInPage = LoadComponents('Signin');
 const SignUpPage = LoadComponents('Signup');
 const Dashboard = LoadComponents('Dashboard');
-const CreateParcel = LoadComponents('Create');
+const CreateParcel = LoadComponents('CreateParcel');
+
 
 const Pages = () => {
   return (
@@ -36,13 +39,17 @@ const Pages = () => {
 
         <Route exact path="/dashboard">
           <Suspense fallback={<Loading />}>
-            <Dashboard />
+            <DashboardProvider>
+              <Dashboard />
+            </DashboardProvider>
           </Suspense>
         </Route>
 
         <Route exact path="/create">
           <Suspense fallback={<Loading />}>
-            <CreateParcel />
+            <CreateParcelProvider>
+              <CreateParcel />
+            </CreateParcelProvider>
           </Suspense>
         </Route>
       </Switch>
