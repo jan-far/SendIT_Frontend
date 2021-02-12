@@ -16,6 +16,7 @@ function FormHandler() {
     recipient: '',
     destination: '',
     weight: '',
+    status: '',
   });
 
   const handleChange = (e) => {
@@ -37,6 +38,7 @@ function FormHandler() {
       destination: '',
       weight: '',
       recipient: '',
+      status: '',
     });
 
     setPhone({

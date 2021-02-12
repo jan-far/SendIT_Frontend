@@ -1,4 +1,4 @@
-import { getCookie } from "./helpers";
+import { getCookie } from './helpers';
 
 const GetHostUrl = () => {
   return window.location.host.indexOf('127.0.0.1') === 0 ||
@@ -34,6 +34,60 @@ export const get_request = async (route) => {
         'x-access-token': `${token}`,
       },
       method: 'GET',
+    });
+    return requestData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const user_post = async (details, route) => {
+  const token = getCookie('session_');
+
+  try {
+    const requestData = await fetch(`${url}${route}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': `${token}`,
+      },
+      method: 'POST',
+      body: JSON.stringify(details),
+    });
+    return requestData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const delete_parcel = async (route) => {
+  const token = getCookie('session_');
+
+  try {
+    const requestData = await fetch(`${url}${route}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': `${token}`,
+      },
+      method: 'DELETE',
+    });
+    return requestData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const update_parcel = async (details, route) => {
+  const token = getCookie('session_');
+
+  try {
+    const requestData = await fetch(`${url}${route}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': `${token}`,
+      },
+      method: 'PUT',
+      body: JSON.stringify(details),
     });
     return requestData;
   } catch (error) {

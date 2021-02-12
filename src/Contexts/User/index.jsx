@@ -1,33 +1,22 @@
-import React, { useState, useEffect, createContext} from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { get_request } from '../../Services/utils/fetch';
+import { clearCookie } from '../../Services/utils/helpers';
 
 export const UserContext = createContext({
-  data: {},
+  user: {},
+  setUser: () => {},
   Row: [],
   empty: false,
+  setEmpty: () => {},
   isLoading: true,
+  setLoading: () => {},
 });
 
 const UserProvider = ({ children }) => {
-  const [data, setData] = useState({});
-  const [isLoading, setLoading] = useState(true);
-  const [Row, setRow] = useState([]);
-  const [empty, setEmpty] = useState(false);
-
-  const getUser = async () => {
-    try {
-      const req = await get_request('/users');
-      const res = await req.json();
-
-      if (!req) {
-        console.log('Error occur');
-      } else {
-        setData(res.Profile);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [user, setUser] = useState({}),
+    [isLoading, setLoading] = useState(true),
+    [Row, setRow] = useState([]),
+    [empty, setEmpty] = useState(false);
 
   const getData = async () => {
     try {
@@ -35,22 +24,16 @@ const UserProvider = ({ children }) => {
       const response = await req.json();
 
       if (!req || response.rows === undefined) {
-        console.log('error occured');
+        clearCookie();
+        setLoading(false);
       } else if (response.rows === [] || response.rowCount === 0) {
-        console.log('an empty data');
         setEmpty(true);
-        setLoading(false)
+        setLoading(false);
         return ' ';
       } else {
         setEmpty(false);
-        setLoading(false)
+        setLoading(false);
         setRow([...response.rows]);
-        for (let i = 0; i < response.rowCount; i += 1) {
-          // if (response.rows[i].status !== 'delivered') {
-          //   count += 1;
-          // }
-          // records(response, count, (response.rowCount - count));
-        }
       }
     } catch (error) {
       console.log(error);
@@ -58,17 +41,19 @@ const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getUser();
     getData();
-  }, []);
+  }, [user]);
 
   return (
     <UserContext.Provider
       value={{
-        data,
+        user,
+        setUser,
         Row,
         empty,
-        isLoading
+        setEmpty: () => {},
+        isLoading,
+        setLoading,
       }}
     >
       {children}

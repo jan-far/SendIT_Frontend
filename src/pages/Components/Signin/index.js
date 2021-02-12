@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import FormHandler from '../../../Services/FormHandler';
 import './styles.css';
 import {
@@ -19,30 +19,23 @@ import {
 } from './SignInElements';
 import { Error } from '../../../Services/FormHandler/validateInfo';
 import { post_request } from '../../../Services/utils/fetch';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { setCookie, clearCookie } from '../../../Services/utils/helpers';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../../Contexts/User';
+import NotificationToast from '../../../Components/Toast';
 
 const logo  = './images/logo.jpg';
 
-toast.configure({
-  autoClose: 5000,
-  closeButton: true,
-  draggable: false,
-  position: 'bottom-left',
-  hideProgressBar: true,
-});
-
 const SignInPage = () => {
   const [loading, setLoading] = useState(false);
+  const { setUser } = useContext(UserContext)
 
   const {
     register,
     handleSubmit,
     handleChange,
     values,
-    reset,
+    resetInput,
     errors,
   } = FormHandler();
   const { email, password } = values;
@@ -52,17 +45,18 @@ const SignInPage = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     clearCookie()
-    reset();
+    resetInput();
     try {
       const req = await post_request(data, '/auth/signin');
       const response = await req.json();
 
       if (response === undefined || req.status === 400) {
-        toast.error(`${response.message}`);
+        NotificationToast.error(`${response.message}`);
         setLoading(false);
       } else {
         setCookie('session_', response.Profile.token, 1);
-        toast.success(`${response.message}`);
+        NotificationToast.success(`${response.message}`);
+        setUser({...response.Profile})
         setLoading(false);
 
         setTimeout(() => {

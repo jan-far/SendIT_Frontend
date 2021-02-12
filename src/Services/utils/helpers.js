@@ -2,7 +2,7 @@ export function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires = `expires=${d.toUTCString()}`;
-  document.cookie = `${cname}=${cvalue};${expires};path=/; Secure`;
+  document.cookie = `${cname}=${cvalue};${expires};path=/; SameSite=None; Secure`;
   return document.cookie;
 }
 
@@ -25,5 +25,5 @@ export function clearCookie() {
   const now = new Date(0);
   const expireTime = now.getTime();
   now.setTime(expireTime);
-  document.cookie = `${document.cookie};expires=${now.toUTCString()};path=/`;
+  document.cookie = `${document.cookie};expires=${now.toUTCString()};path=/; SameSite=None; Secure`;
 }

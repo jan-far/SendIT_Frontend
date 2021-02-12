@@ -1,6 +1,7 @@
 import { Avatar, Zoom } from '@material-ui/core';
+import { Person } from '@material-ui/icons';
 import React from 'react';
-import { FaBars, FaUser } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import {
   NavHeader,
   Menu,
@@ -92,7 +93,7 @@ const UserNav = ({
                 </>
               ) : (
                 <>
-                  <FaUser /> <UserDetails>User</UserDetails>{' '}
+                  <Person />
                 </>
               )}
             </SideUser>
@@ -139,7 +140,7 @@ const UserNav = ({
               </>
             ) : (
               <>
-                <FaUser /> <UserDetails>User</UserDetails>{' '}
+                <Person />
               </>
             )}
           </User>

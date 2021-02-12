@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import FormHandler from '../../../Services/FormHandler';
 import 'react-phone-number-input/style.css';
 import './style.css';
@@ -6,8 +6,6 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import LocationSearchInput from '../../../Components/GooglePlace';
 import { post_request } from '../../../Services/utils/fetch';
 import { Error } from '../../../Services/FormHandler/validateInfo';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { setCookie } from '../../../Services/utils/helpers'
 import { useHistory } from 'react-router-dom';
 import {
@@ -26,18 +24,13 @@ import {
   Text,
   Text2,
 } from './SignUpElements';
+import { UserContext } from '../../../Contexts/User';
+import NotificationToast from '../../../Components/Toast';
 
 const logo  = './images/logo.jpg';
 
-toast.configure({
-  position: 'bottom-left',
-  autoClose: 5000,
-  closeButton: true,
-  draggable: false,
-  hideProgressBar: true,
-})
-
 const SignUp = () => {
+  const { setUser } = useContext(UserContext)
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -64,12 +57,13 @@ const SignUp = () => {
       console.log(response);
 
       if (response === undefined || req.status === 400) {
-        toast.error(`${response.message}`)
+        NotificationToast.error(`${response.message}`)
         setLoading(false)
       } else {
-        toast.success(`${response.message}`);
+        NotificationToast.success(`${response.message}`);
         setLoading(false);
         setCookie('session_', response.Token)
+        setUser({})
 
         setTimeout(() => {
           history.push('/dashboard');

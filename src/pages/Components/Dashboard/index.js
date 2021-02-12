@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   CardActionArea,
+  Container,
 } from '@material-ui/core';
 
 import {
@@ -15,7 +16,6 @@ import {
   UserDash,
   SendParcel,
   ProfileInfo,
-  UserTable,
   Field,
   Close,
   Hr,
@@ -51,14 +51,6 @@ const Posts = ({ data }) => {
                   </Typography>
                 </CardContent>
               </CardActionArea>
-              {/* <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-                <Button size="small" color="primary">
-                  Learn More
-                </Button>
-              </CardActions> */}
             </Card>
           </Grid>
         ))}
@@ -70,20 +62,20 @@ const Posts = ({ data }) => {
 const PostWithSpinner = withSpinner(Posts);
 
 const Dashboard = () => {
-  const { Row, empty, data, isLoading } = useContext(UserContext);
+  const { Row, empty, user, isLoading } = useContext(UserContext);
   const { show, showProfile, isOpen, toggle } = useContext(DashboardContext);
 
   const profileInfo = () => {
-    const fullname = `${data.firstname}  ${data.lastname}`;
+    const fullname = `${user.firstname}  ${user.lastname}`;
     return (
       <>
         <Field>Full Name: {fullname}</Field>
         <Hr />
-        <Field>Email: {data.email}</Field>
+        <Field>Email: {user.email}</Field>
         <Hr />
-        <Field>Phone: {data.phone}</Field>
+        <Field>Phone: {user.phone}</Field>
         <Hr />
-        <Field>Location: {data.location}</Field>
+        <Field>Location: {user.location}</Field>
       </>
     );
   };
@@ -94,7 +86,7 @@ const Dashboard = () => {
         title="Dashboard"
         isOpen={isOpen}
         toggle={toggle}
-        username={data.firstname}
+        username={user.firstname}
       />
       <DashboardContainer>
         <Profile onClick={showProfile}>My Profile</Profile>
@@ -106,17 +98,18 @@ const Dashboard = () => {
             {profileInfo()}
           </ProfileInfo>
         </UserDash>
-        <UserTable>
+        <Container>
           {empty ? (
-            <div>NO PARCEL ORDER HAS BEEN MADE! </div>
+            <Typography variant="h5" align="center" style={{marginTop: 25, color: "wheat"}}>
+              NO PARCEL ORDER HAS BEEN MADE
+            </Typography>
           ) : (
             <PostWithSpinner isLoading={isLoading} data={Row} />
             // <Table data={Row} columns={columns} />
           )}
-        </UserTable>
+        </Container>
         <SendParcel to="/create">Send New Parcel</SendParcel>
       </DashboardContainer>
-      )
     </>
   );
 };

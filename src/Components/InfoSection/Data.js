@@ -11,10 +11,10 @@ export const homeObjOne = {
   lightBg: false,
   lightText: true,
   lightTextDesc: true,
-  topLine: 'Premium Bank',
-  headline: 'Unlimited Transactions with zero fess',
-  description: `Get access to our exclusive app that allows you to send \
-  unlimited transactions without extra charges`,
+  topLine: 'Dashing Delivery',
+  headline: 'Get your parcel arrive at desired destination in a flash!',
+  description: `Get access to our exclusive pickup stations that allows you to send \
+  as much parcels as required without extra charges. Terms and condition applied`,
   buttonLabel: 'Get started',
   imgStart: false,
   img: './svg/arrived.svg',

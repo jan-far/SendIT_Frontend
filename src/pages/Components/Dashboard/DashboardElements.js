@@ -6,21 +6,10 @@ export const DashboardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  padding-top: 20px;
   width: 100%;
-  overflow: hidden!important;
-
-  :before {
-    z-index: -100;
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0, #101500 100%),
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0, #101500 100%),
       linear-gradient(180deg, #101550 0%, transparent 100%);
-  }
 `;
 
 export const Profile = styled.button`

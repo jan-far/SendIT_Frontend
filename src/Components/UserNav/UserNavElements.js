@@ -21,7 +21,7 @@ export const NavHeader = styled.div`
 `;
 
 export const Title = styled.div`
-  margin-left: 5px;
+  margin-left: 15px;
   grid-column: 1;
   place-self: center start;
   place-items: center center;
@@ -44,41 +44,42 @@ export const Menu = styled.ul`
   grid-auto-flow: row;
   display: flex;
   align-items: center;
+  justify-content: center;
   list-style: none;
   text-align: center;
 `;
 
 export const MenuItem = styled.li`
-  height: 80px;
+  height: 40px;
 `;
 
 export const MenuLink = styled(Link)`
   display: ${({ show }) => (show ? 'flex' : 'none')};
-  color: #fff;
+  color: #ff99;
   align-items: center;
+  justify-self: center;
+  justify-content: center;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
+  margin-right: 5px;
   cursor: pointer;
 
   &:hover {
-    padding: 0 14px;
-    box-shadow: 0 0 10px lightblue;
-    border: outset lightblue;
-    transition: 0.2s ease-in-out;
+    color:#fff;
+    transition: 0.1s ease-in-out;
   }
 `;
 
 export const User = styled.div`
   display: flex;
   flex-direction: row;
-  place-self: center center;
   place-items: center center;
-  background: red;
+  background: #101560;
   padding: 10px;
   margin-right: 10px;
   border-radius: 20px;
-  border: 5px solid seagreen;
+  border: 1px solid seagreen;
 `;
 
 export const UserDetails = styled.span`
