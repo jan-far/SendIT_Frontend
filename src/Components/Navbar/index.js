@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa';
 import {
   Nav,
   NavLinks,
@@ -12,33 +12,39 @@ import {
   NavBtn,
   NavDetails,
   NavBtnLink,
-  SignUp
-} from './NavbarElements'
+  SignUp,
+  User,
+} from './NavbarElements';
 import { useContext } from 'react';
 import { HomepageContext } from '../../Contexts/Homepage';
-const logo  = './images/logo.jpg';
+import { UserContext } from '../../Contexts/User';
+import { RouteButton } from '../ButtonElements';
+import { Avatar, Zoom } from '@material-ui/core';
+import { UserDetails } from '../UserNav/UserNavElements';
+const logo = './images/logo.jpg';
 
 const Navbar = () => {
-  const { toggle } = useContext(HomepageContext)
+  const { toggle } = useContext(HomepageContext);
+  const { user } = useContext(UserContext);
   const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {
-    if(window.scrollY >= 80) {
-      setScrollNav(true)
-    }else{
-      setScrollNav(false)
+    if (window.scrollY >= 80) {
+      setScrollNav(true);
+    } else {
+      setScrollNav(false);
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener('scroll', changeNav)
+    window.addEventListener('scroll', changeNav);
   }, []);
 
   return (
     <Nav scrollNav={scrollNav}>
       <NavbarContainer>
-        <NavLogo to='/' >
-          <NavLogoImg src={logo} alt='SendIT' width='100px' />
+        <NavLogo to="/">
+          <NavLogoImg src={logo} alt="SendIT" width="100px" />
         </NavLogo>
         <MobileIcon onClick={toggle}>
           <FaBars />
@@ -47,45 +53,68 @@ const Navbar = () => {
           <NavMenu>
             <NavItem>
               <NavLinks
-                to='/'
+                to="/"
                 smooth={true}
                 duration={700}
                 spy={true}
-                exact='true'
-                offset={-80}
-              >Home</NavLinks>
+                exact="true"
+                offset={-79}
+              >
+                Home
+              </NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks
-                to='about'
+                to="about"
                 smooth={true}
                 duration={700}
                 spy={true}
-                exact='true'
-                offset={-80}
-              >About</NavLinks>
+                exact="true"
+                offset={-79}
+              >
+                About
+              </NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks
-                to='service'
+                to="service"
                 smooth={true}
                 duration={700}
                 spy={true}
-                exact='true'
-                offset={-80}
-              >Services</NavLinks>
+                exact="true"
+                offset={-79}
+              >
+                Services
+              </NavLinks>
             </NavItem>
-            <NavItem>
-              <SignUp to='/signup'>Sign Up</SignUp>
-            </NavItem>
+            {user ? (
+              <RouteButton to="/dashboard">Dashboard</RouteButton>
+            ) : (
+              <NavItem>
+                <SignUp to="/signup">Sign Up</SignUp>
+              </NavItem>
+            )}
           </NavMenu>
-          <NavBtn>
-            <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-          </NavBtn>
+          {user ? (
+            <User>
+              <>
+                <Zoom in={true}>
+                  <Avatar alt="user logo" style={{ color: 'green' }}>
+                    {`${user.firstname}`[0]}
+                  </Avatar>
+                </Zoom>
+                <UserDetails light="true">{user.firstname}</UserDetails>
+              </>
+            </User>
+          ) : (
+            <NavBtn>
+              <NavBtnLink to="/signin">Sign In</NavBtnLink>
+            </NavBtn>
+          )}
         </NavDetails>
       </NavbarContainer>
     </Nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

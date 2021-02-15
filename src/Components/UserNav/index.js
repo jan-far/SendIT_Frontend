@@ -1,7 +1,9 @@
 import { Avatar, Zoom } from '@material-ui/core';
-import { Person } from '@material-ui/icons';
-import React from 'react';
+import { Person, PowerSettingsNew } from '@material-ui/icons';
+import React, { useContext, useState } from 'react';
 import { FaBars } from 'react-icons/fa';
+import { UserContext } from '../../Contexts/User';
+import { clearCookie } from '../../Services/utils/helpers';
 import {
   NavHeader,
   Menu,
@@ -19,13 +21,13 @@ import {
   SidebarLink,
   SideUser,
   CloseIcon,
+  Logout,
 } from './UserNavElements';
 
 const UserNav = ({
   isOpen,
   toggle,
   title,
-  username,
   first,
   toFirst,
   second,
@@ -35,6 +37,12 @@ const UserNav = ({
   forth,
   toForth,
 }) => {
+  const { user } = useContext(UserContext);
+  const [show, setShow] = useState(false);
+
+  const logout = () => {
+    clearCookie();
+  };
 
   return (
     <>
@@ -81,15 +89,19 @@ const UserNav = ({
                 {forth}
               </SidebarLink>
             </SidebarMenu>
-            <SideUser>
-              {username ? (
+            <SideUser onClick={() => logout()} to="/">
+              {user ? (
                 <>
                   <Zoom in={true}>
                     <Avatar alt="user logo" style={{ color: 'green' }}>
-                      {username[0]}
+                      {user.firstname === undefined
+                        ? 'A'
+                        : `${user.firstname}`[0]}
                     </Avatar>
                   </Zoom>
-                  <UserDetails>{username}</UserDetails>
+                  <UserDetails logout="true">
+                    <PowerSettingsNew/> Logout
+                  </UserDetails>
                 </>
               ) : (
                 <>
@@ -128,15 +140,22 @@ const UserNav = ({
               </MenuLink>
             </MenuItem>
           </Menu>
-          <User>
-            {username ? (
+          <User onClick={() => setShow(!show)}>
+            {user ? (
               <>
                 <Zoom in={true}>
                   <Avatar alt="user logo" style={{ color: 'green' }}>
-                    {username[0]}
+                    {user.firstname === undefined
+                      ? 'A'
+                      : `${user.firstname}`[0]}
                   </Avatar>
                 </Zoom>
-                <UserDetails>{username}</UserDetails>
+                <UserDetails>
+                  {user.firstname === undefined ? 'Admin' : user.firstname}
+                </UserDetails>
+                <Logout show={show ? show.toString() : undefined} to="/" onClick={() => logout()}>
+                   <PowerSettingsNew/> &nbsp; Logout
+                </Logout>
               </>
             ) : (
               <>

@@ -66,7 +66,7 @@ export const MenuLink = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    color:#fff;
+    color: #fff;
     transition: 0.1s ease-in-out;
   }
 `;
@@ -80,6 +80,31 @@ export const User = styled.div`
   margin-right: 10px;
   border-radius: 20px;
   border: 1px solid seagreen;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const Logout = styled(Link)`
+  display: ${({ show }) => (show ? 'flex' : 'none')};
+  background: #101560;
+  border: 1px solid seagreen;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  top: 60px;
+  right: 25px;
+
+  &:hover {
+    background: wheat !important;
+    color: red;
+  }
 `;
 
 export const UserDetails = styled.span`
@@ -88,6 +113,7 @@ export const UserDetails = styled.span`
   text-align: center;
   margin-left: 5px;
   margin-right: 15px;
+  color: ${({ light }) => (light ? 'white' : 'wheat')};
 
   &::before {
     content: '|';
@@ -96,8 +122,14 @@ export const UserDetails = styled.span`
   }
 
   @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    place-items: center center;
+    color: ${({ logout }) => (logout ? 'red' : 'wheat')};
+
     &::before {
       color: #000;
+      place-self: center center;
     }
   }
 `;
@@ -178,18 +210,25 @@ export const SidebarLink = styled(Link)`
   }
 `;
 
-export const SideUser = styled.div`
+export const SideUser = styled(Link)`
   display: flex;
   justify-content: center;
-  background: green;
-  width: 20%;
-  padding: 20px;
+  align-items: center;
+  background: transparent;
+  width: 35%;
+  padding: 5px 20px 5px 20px;
   border-radius: 30px;
+  border: 1px solid green;
+  text-decoration: none;
 
   &:hover {
     cursor: pointer;
     background-color: #01bf61;
     color: black;
-    transform: scaleX(1.1);
+    transform: scale(1.01);
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 50%;
   }
 `;

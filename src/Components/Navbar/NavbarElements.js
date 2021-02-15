@@ -3,135 +3,147 @@ import { Link as LinkR } from 'react-router-dom';
 import { Link as LinkS } from 'react-scroll';
 
 export const Nav = styled.div`
-background: ${({ scrollNav }) => (scrollNav ? '#101540' : 'transparent')};
-height: 80px;
-margin-top: -80px;
-display: flex;
-justify-content: center;
-align-items: center;
-position: sticky;
-top: 0;
-z-index: 10;
+  background: ${({ scrollNav }) => (scrollNav ? '#101540' : 'transparent')};
+  height: 80px;
+  margin-top: -80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
-@media screen and (max-width: 960px) {
-  transition: 0.8s all ease;
-}
-`
+  @media screen and (max-width: 960px) {
+    transition: 0.8s all ease;
+  }
+`;
 
 export const NavbarContainer = styled.div`
-display: flex;
-justify-content: space-between;
-height: 80px;
-z-index: 1;
-width: 91%;
-padding: 0 24px;
-max-width: 1200px;
-`
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  z-index: 1;
+  width: 100%;
+  padding: 0 24px;
+  max-width: 1100px;
+`;
 
 export const NavLogo = styled(LinkR)`
-color: #fff;
-display: flex;
-justify-self: flex-start;
-justify-content:center;
-align-content: center;
-width: 70px;
-cursor:pointer;
-margin-left: -8%;
-`
+  color: #fff;
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+  width: 70px;
+  cursor: pointer;
+`;
 
 export const NavLogoImg = styled.img`
-width:100%;
-align-self: center;
-`
+  width: 100%;
+  align-self: center;
+`;
 
 export const MobileIcon = styled.div`
-display: none;
+  display: none;
 
-@media screen and (max-width: 768px) {
-  display: block;
-  position: absolute;
-  top:0;
-  right:0;
-  transform: translate(-100%, 60%);
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #fff
-}
-`
+  @media screen and (max-width: 768px) {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #fff;
+  }
+`;
 
 export const NavDetails = styled.div`
-display: grid;
-grid-template-columns: 1fr .1fr;
-margin-right: -2%;
-`
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  margin-right: -2%;
+`;
 
 export const NavMenu = styled.ul`
-grid-column: 1;
-grid-auto-flow: row;
-display: flex;
-align-items: center;
-list-style: none;
-text-align: center;
+  grid-column: 1;
+  grid-auto-flow: row;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
 
-@media screen and (max-width: 768px) {
-  display: none;
-}
-`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
 
 export const NavItem = styled.li`
-height: 80px;
-`
+  height: 80px;
+`;
 
 export const NavLinks = styled(LinkS)`
-color: #fff;
-display: flex;
-align-items: center;
-text-decoration: none;
-padding: 0 1rem;
-height: 100%;
-cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
 
-&.active{
-  border-bottom: 3px solid #01bf71;
-}
-`
+  &.active {
+    border-bottom: 3px solid #01bf71;
+  }
+`;
 
 export const SignUp = styled(LinkR)`
-color: #fff;
-display: flex;
-align-items: center;
-text-decoration: none;
-padding: 0 1rem;
-height: 100%;
-cursor: pointer;
-`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+`;
 
 export const NavBtn = styled.nav`
- display: flex;
- align-items: center;
- grid-column: 2;
+  display: flex;
+  align-items: center;
+  grid-column: 2;
 
- @media screen and (max-width: 768px) {
-   display: none;
- }
-`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
 
 export const NavBtnLink = styled(LinkR)`
-border-radius: 50px;
-background: #01bf71;
-white-space: nowrap;
-padding: 10px 22px;
-color: #010606;
-font-size: 16px;
-outline: none;
-border: none;
-cursor: pointer;
-transition: all 0.2s ease-in-out;
-text-decoration: none;
-
-&:hover{
-  transition: all 0.2s ease-in-out;
-  background: #fff;
+  border-radius: 50px;
+  background: #01bf71;
+  white-space: nowrap;
+  padding: 10px 22px;
   color: #010606;
-}
-`
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+`;
+
+export const User = styled.div`
+  display: flex;
+  flex-direction: row;
+  place-items: center center;
+  background: transparent;
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 20px;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+`;

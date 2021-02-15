@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 function FormHandler() {
   const { register, handleSubmit, errors, control, reset } = useForm();
 
-  const [phone, setPhone] = useState()
+  const [phone, setPhone] = useState();
 
   const [values, setVal] = useState({
     firstname: '',
@@ -43,7 +43,7 @@ function FormHandler() {
 
     setPhone({
       phone: '',
-    })
+    });
   };
 
   return {

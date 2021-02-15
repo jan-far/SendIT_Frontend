@@ -138,7 +138,7 @@ const DeleteParcel = async (id, Row, setLoading, setEmpty) => {
 };
 
 const CreateParcel = () => {
-  const { Row, setEmpty, isLoading, user, setLoading } = useContext(
+  const { Row, setEmpty, isLoading, setLoading } = useContext(
     UserContext
   );
   const [selectedParcel, setSelected] = useState({});
@@ -197,9 +197,9 @@ const CreateParcel = () => {
     return (
       <>
         <Typography variant="caption">Total Orders: {data.length}</Typography>
-        {/* <br></br> */} | &nbsp;
+        | &nbsp;
         <Typography variant="caption">Total Pending: {pending}</Typography>
-        {/* <br></br> */} | &nbsp;
+        | &nbsp;
         <Typography variant="caption">Total Delivered: {delivered}</Typography>
       </>
     );
@@ -220,7 +220,6 @@ const CreateParcel = () => {
         toFirst="/dashboard"
         isOpen={isOpen}
         toggle={toggle}
-        username={user.firstname}
       />
 
       <Record data={Row} />

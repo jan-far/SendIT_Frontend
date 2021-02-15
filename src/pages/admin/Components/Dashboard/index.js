@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import UserNav from '../../../../Components/UserNav';
 import { Pie } from 'react-chartjs-2';
 import { AdminContext } from '../../../../Contexts/Admin';
@@ -179,8 +179,11 @@ const AdminDashboard = () => {
     editing,
     setEditing,
     closeEdit,
+    isOpen,
+    toggle,
+    selectedParcel, 
+    setSelectedParcel
   } = useContext(AdminContext);
-  const [selectedParcel, setSelectedParcel] = useState({});
 
   let processing = 0;
   let pending = 0;
@@ -342,7 +345,8 @@ const AdminDashboard = () => {
     <>
       <UserNav
         title="Admin Portal"
-        username="Admin"
+        isOpen={isOpen}
+        toggle={toggle}
       />
       <UpdateParcel
         data={selectedParcel}

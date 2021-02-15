@@ -8,7 +8,6 @@ import FormHandler from '../../../../Services/FormHandler';
 import {
   Container,
   FormWrapper,
-  Image,
   Icon,
   FormContent,
   Form,
@@ -68,14 +67,13 @@ const AdminAuth = () => {
   return (
     <>
       <Container>
-        <Image src="./svg/delivery_address.svg" />
         <FormWrapper>
           <Icon to="/">
             <img src={logo} width="100px" alt="logo" />
           </Icon>
           <FormContent>
             <Form action="#" onSubmit={handleSubmit(onSubmit)}>
-              <FormH1>Sign in to your account</FormH1>
+              <FormH1>Admin SignIn</FormH1>
               <FormLabel htmlFor="for">Email</FormLabel>
               <FormInput
                 name="email"

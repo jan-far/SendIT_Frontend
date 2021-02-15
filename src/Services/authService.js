@@ -7,9 +7,14 @@ export const getUser = async () => {
     const res = await req.json();
 
     if (req.status === 200) {
-      return { success: true, user: { ...res.Profile } };
+      if (res.Profile.role === 1) {
+        return { success: true, user: { ...res.Profile } };
+      } else {
+        clearCookie();
+        return { success: false };
+      }
     } else {
-      clearCookie()
+      clearCookie();
       return { success: false };
     }
   } catch (error) {
@@ -26,7 +31,7 @@ export const AdminGetUser = async () => {
     if (req.status === 200) {
       return { success: true, users: { ...res.Profile } };
     } else {
-      clearCookie()
+      clearCookie();
       return { success: false };
     }
   } catch (error) {

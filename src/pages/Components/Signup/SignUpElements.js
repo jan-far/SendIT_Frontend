@@ -44,6 +44,7 @@ export const Container = styled.div`
   grid-auto-flow: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 
   :before {
     content: '';
@@ -86,13 +87,15 @@ export const Icon = styled(Link)`
   margin: 32px 0 0 32px;
   text-decoration: none;
   align-self: center;
-  justify-content: center;
-  place-items: center center;
-  z-index: 1;
+  z-index: 3;
 
   @media screen and (max-width: 480px) {
-    margin: 8px 0 0 16px;
+    margin: 8px 0 15px 16px;
   } ;
+
+  @media screen and (max-width: 375px) {
+    margin-bottom: 15px;
+  }
 `;
 
 export const FormContent = styled.div`
@@ -105,6 +108,10 @@ export const FormContent = styled.div`
   @media screen and (max-width: 480px) {
     padding: 10px;
   } ;
+
+  @media screen and (max-width: 375px) {
+    margin-top: 10px;
+  }
 `;
 
 export const Form = styled.form`

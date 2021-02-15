@@ -24,12 +24,12 @@ export const Error = (err, name) => {
         errors={err}
         name={name}
         as={<ErrMsg show={shown} />}
-        render={({ messages }) =>
-          messages &&
-          Object.entries(messages).map(([type, message]) => (
-            <p key={type}>{message}</p>
-          ))
-        }
+        // render={({ messages }) =>
+        //   messages &&
+        //   Object.entries(messages).map(([type, message]) => (
+        //     <p key={type}>{message}</p>
+        //   ))
+        // }
       />
     </>
   );

@@ -42,6 +42,7 @@ const SignUp = () => {
     Controller,
     control,
     reset,
+    resetInput,
     errors,
   } = FormHandler();
   const { firstname, lastname, email, password, location } = values;
@@ -51,6 +52,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     reset();
+    resetInput();
     try {
       const req = await post_request(data, '/auth/signup');
       const response = await req.json();

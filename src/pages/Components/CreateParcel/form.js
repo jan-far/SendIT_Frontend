@@ -29,7 +29,6 @@ import {
 } from '@material-ui/core';
 import NotificationToast from '../../../Components/Toast';
 
-
 const Forms = ({ show, create, close }) => {
   const { Row, setLoading, setEmpty } = useContext(UserContext);
 
@@ -59,8 +58,6 @@ const Forms = ({ show, create, close }) => {
 
   const submitForm = async (data) => {
     setLoading(true);
-    reset();
-    resetInput();
     show();
     try {
       const req = await user_post(data, '/parcels');
@@ -73,6 +70,9 @@ const Forms = ({ show, create, close }) => {
         Row.unshift(response.Parcel);
         setEmpty(false);
         setLoading(false);
+
+        reset();
+        resetInput();
       }
     } catch (error) {
       console.log(error);
@@ -261,7 +261,7 @@ export const EditParcel = ({ data, editing, closeEdit, submitEdit }) => {
             />
 
             <FormLabel htmlFor="for">Phone Number</FormLabel>
-            <FormInput name="phone" type="number" value={data.phone} disabled />
+            <FormInput name="phone" type="text" value={data.phone} disabled />
 
             <FormLabel htmlFor="for">Location</FormLabel>
             <FormInput

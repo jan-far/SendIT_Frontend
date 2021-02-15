@@ -19,10 +19,10 @@ export const Container = styled.div`
   z-index: 0;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 
   :before {
     content: '';
@@ -37,15 +37,6 @@ export const Container = styled.div`
 
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
-  } ;
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  z-index: 1;
-
-  @media screen and (max-width: 768px) {
-    display: none;
   } ;
 `;
 
@@ -64,7 +55,7 @@ export const Icon = styled(Link)`
   margin: 32px 0 0 32px;
   text-decoration: none;
   align-self: center;
-  z-index: 1;
+  z-index: 5;
 
   @media screen and (max-width: 480px) {
     margin: 8px 0 0 16px;
@@ -85,7 +76,7 @@ export const FormContent = styled.div`
 
 export const Form = styled.form`
   display: grid;
-  background: #010135;
+  background: #010125;
   max-width: 500px;
   height: auto;
   width: 100%;

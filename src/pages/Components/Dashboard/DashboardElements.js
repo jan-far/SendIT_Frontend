@@ -1,44 +1,28 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding-top: 20px;
-  width: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0, #101500 100%),
-      linear-gradient(180deg, #101550 0%, transparent 100%);
-`;
-
-export const Profile = styled.button`
-  display: flex;
-  flex-direction: column;
-  color: black;
-  margin-bottom: -2%;
-`;
-
-export const UserDash = styled.div`
-  display: ${({ show }) => (show ? 'block' : 'none')};
-  position: fixed;
-  z-index: 1;
-  background: rgba(10, 10, 10, 0.9);
+  padding-top: 10px;
+  position: relative;
+  bottom: 0;
   left: 0;
-  top: -10;
-  width: 100%;
-  height: 150vh;
-  overflow: auto;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
 
-  @media screen and (max-width: 480px) {
-    display: ${({ show }) => (show ? 'block' : 'none')};
-    position: fixed;
-    z-index: 5;
-    background: rgba(10, 10, 10, 0.9);
-    left: 0;
+  :before {
+    content: '';
+    position: absolute;
     top: 0;
-    height: 150vh;
-    overflow: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to left bottom, rgba(0, 0, 0, 0.1), #101500),
+      linear-gradient(to bottom right, #101550, #101505);
+    z-index: -100;
   }
 `;
 
@@ -66,32 +50,18 @@ export const ProfileInfo = styled.div`
   }
 `;
 
-export const Close = styled.span`
+export const Field = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   color: black;
-  background-color: white;
-  float: left;
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-&:hover,
-&:focus {
-  color: white;
-  text-decoration: none;
-  background-color: red;
-  cursor: pointer;
-  }
-`;
-
-export const Field = styled.p`
-  color: black;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: start;
+  width: 100%;
   padding: 10px;
 `;
 
 export const Hr = styled.hr`
-  background: black;
+  color: limegreen;
 `;
 
 export const UserTable = styled.div`
@@ -103,21 +73,5 @@ export const UserTable = styled.div`
   @media screen and (max-width: 520px) {
     display: block;
     width: 100%;
-  }
-`;
-
-export const SendParcel = styled(Link)`
-  background: blue;
-  margin: 10px auto;
-  padding: 10px 5px;
-  color: white;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  text-decoration: none;
-
-  &:hover {
-    color: white;
-    background-color: #010187;
   }
 `;

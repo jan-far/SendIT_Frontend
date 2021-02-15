@@ -12,6 +12,10 @@ export const AdminContext = createContext({
   closeEdit: () => {},
   isLoading: true,
   setLoading: () => {},
+  isOpen: false,
+  toggle: () => {},
+  selectedParcel: {},
+  setSelectedParcel: () => {},
 });
 
 const AdminProvider = ({ children }) => {
@@ -19,12 +23,17 @@ const AdminProvider = ({ children }) => {
     [users, setUsers] = useState([]),
     [isLoading, setLoading] = useState(true),
     [Row, setRow] = useState([]),
-    [editing, setEditing] = useState(false);
+    [editing, setEditing] = useState(false),
+    [isOpen, setIsOpen] = useState(false),
+    [selectedParcel, setSelectedParcel] = useState({});
 
   const closeEdit = () => {
-    return setEditing(false)
+    return setEditing(false);
   };
 
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   const getData = async () => {
     try {
@@ -83,6 +92,10 @@ const AdminProvider = ({ children }) => {
         closeEdit,
         isLoading,
         setLoading,
+        isOpen,
+        toggle,
+        selectedParcel,
+        setSelectedParcel,
       }}
     >
       {children}

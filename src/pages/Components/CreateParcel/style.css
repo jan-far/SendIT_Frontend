@@ -22,12 +22,6 @@ Error {
   color: red;
 }
 
-@media screen and (max-width: 480px) {
-  .PhoneInputCountry {
-    padding: 32px 32px;
-  }
-}
-
 @media screen and (max-width: 360px) {
   .PhoneInputInput {
     width: 100%

@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loading from '../Components/LoadingPage';
+import AdminProvider from '../Contexts/Admin';
 import CreateParcelProvider from '../Contexts/CreateParcel';
 import DashboardProvider from '../Contexts/Dashboard';
 import AdminRoute from '../HOC/AdminRouteWrapper';
@@ -71,15 +72,17 @@ const Pages = () => {
           </Suspense>
         </Route>
 
-        <Route path="/admin/dashboard">
-          <Suspense fallback={<Loading />}>
-            <AdminRoute>
-              <CreateParcelProvider>
-                <AdminDashboard />
-              </CreateParcelProvider>
-            </AdminRoute>
-          </Suspense>
-        </Route>
+        <AdminProvider>
+          <Route path="/admin/dashboard">
+            <Suspense fallback={<Loading />}>
+              <AdminRoute>
+                <CreateParcelProvider>
+                  <AdminDashboard />
+                </CreateParcelProvider>
+              </AdminRoute>
+            </Suspense>
+          </Route>
+        </AdminProvider>
       </Switch>
     </>
   );

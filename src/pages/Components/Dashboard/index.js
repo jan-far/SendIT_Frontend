@@ -1,6 +1,4 @@
 import React from 'react';
-import { FaTimes } from 'react-icons/fa';
-
 import {
   Grid,
   Typography,
@@ -8,23 +6,17 @@ import {
   CardContent,
   CardActionArea,
   Container,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from '@material-ui/core';
-
-import {
-  DashboardContainer,
-  Profile,
-  UserDash,
-  SendParcel,
-  ProfileInfo,
-  Field,
-  Close,
-  Hr,
-} from './DashboardElements';
+import { DashboardContainer, Field, Hr } from './DashboardElements';
 import UserNav from '../../../Components/UserNav';
 import { useContext } from 'react';
 import { DashboardContext } from '../../../Contexts/Dashboard';
 import withSpinner from '../../../Components/withSpinner';
 import { UserContext } from '../../../Contexts/User';
+import { Button, RouteButton } from '../../../Components/ButtonElements';
 
 const Posts = ({ data }) => {
   return (
@@ -65,17 +57,31 @@ const Dashboard = () => {
   const { Row, empty, user, isLoading } = useContext(UserContext);
   const { show, showProfile, isOpen, toggle } = useContext(DashboardContext);
 
-  const profileInfo = () => {
+  const ProfileData = ({ open, close }) => {
     const fullname = `${user.firstname}  ${user.lastname}`;
     return (
       <>
-        <Field>Full Name: {fullname}</Field>
-        <Hr />
-        <Field>Email: {user.email}</Field>
-        <Hr />
-        <Field>Phone: {user.phone}</Field>
-        <Hr />
-        <Field>Location: {user.location}</Field>
+        <Dialog open={open} onClose={close}>
+          <DialogTitle style={{ textAlign: 'center', background: 'wheat' }}>My Profile</DialogTitle>
+          <DialogContent>
+            <Field>
+              Full Name: <Typography>{fullname}</Typography>
+            </Field>
+            <Hr />
+            <Field>
+              Email: <Typography>{user.email}</Typography>
+            </Field>
+            <Hr />
+            <Field>
+              Phone: <Typography>{user.phone}</Typography>
+            </Field>
+            <Hr />
+            <Field>
+              Location: <Typography>{user.location}</Typography>
+            </Field>
+            <Hr />
+          </DialogContent>
+        </Dialog>
       </>
     );
   };
@@ -85,30 +91,31 @@ const Dashboard = () => {
       <UserNav
         title="Dashboard"
         isOpen={isOpen}
+        first="Create Parcel"
+        toFirst="/create"
         toggle={toggle}
-        username={user.firstname}
       />
       <DashboardContainer>
-        <Profile onClick={showProfile}>My Profile</Profile>
-        <UserDash show={show} onClick={showProfile}>
-          <ProfileInfo>
-            <Close onClick={showProfile}>
-              <FaTimes />
-            </Close>
-            {profileInfo()}
-          </ProfileInfo>
-        </UserDash>
+        <Button primary="true" onClick={showProfile}>
+          My Profile
+        </Button>
+        <ProfileData open={show} close={showProfile} />
         <Container>
           {empty ? (
-            <Typography variant="h5" align="center" style={{marginTop: 25, color: "wheat"}}>
+            <Typography
+              variant="h5"
+              align="center"
+              style={{ marginTop: 25, color: 'wheat' }}
+            >
               NO PARCEL ORDER HAS BEEN MADE
             </Typography>
           ) : (
             <PostWithSpinner isLoading={isLoading} data={Row} />
-            // <Table data={Row} columns={columns} />
           )}
         </Container>
-        <SendParcel to="/create">Send New Parcel</SendParcel>
+        <RouteButton primary="true" dark="true" to="/create">
+          Send New Parcel
+        </RouteButton>
       </DashboardContainer>
     </>
   );
