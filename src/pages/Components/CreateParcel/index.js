@@ -74,6 +74,7 @@ const GetParcels = ({ data, edit, cancel }) => {
                   size="small"
                   color="inherit"
                   onClick={(e) => edit(parcel.id)}
+                  disabled ={parcel.status === 'delivered' ? true : false }
                 >
                   <Edit />
                 </Button>
