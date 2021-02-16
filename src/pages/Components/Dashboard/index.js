@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  makeStyles,
 } from '@material-ui/core';
 import { DashboardContainer, Field, Hr } from './DashboardElements';
 import UserNav from '../../../Components/UserNav';
@@ -59,25 +60,41 @@ const Dashboard = () => {
 
   const ProfileData = ({ open, close }) => {
     const fullname = `${user.firstname}  ${user.lastname}`;
+    const useStyles = makeStyles({
+      g1: {
+        gridColumn: 1,
+      },
+      g2: {
+        gridColumn: 2,
+      },
+    });
+
+    const classes = useStyles();
     return (
       <>
         <Dialog open={open} onClose={close}>
-          <DialogTitle style={{ textAlign: 'center', background: 'wheat' }}>My Profile</DialogTitle>
+          <DialogTitle style={{ textAlign: 'center', background: 'wheat' }}>
+            My Profile
+          </DialogTitle>
           <DialogContent>
             <Field>
-              Full Name: <Typography>{fullname}</Typography>
+              <Typography className={classes.g1}>Full Name: </Typography>
+              <Typography className={classes.g2}>{fullname}</Typography>
             </Field>
             <Hr />
             <Field>
-              Email: <Typography>{user.email}</Typography>
+              <Typography className={classes.g1}>Email: </Typography>
+              <Typography className={classes.g2}>{user.email}</Typography>
             </Field>
             <Hr />
             <Field>
-              Phone: <Typography>{user.phone}</Typography>
+              <Typography className={classes.g1}>Phone: </Typography>
+              <Typography className={classes.g2}>{user.phone}</Typography>
             </Field>
             <Hr />
             <Field>
-              Location: <Typography>{user.location}</Typography>
+              <Typography className={classes.g1}>Location: </Typography>
+              <Typography className={classes.g2}>{user.location}</Typography>
             </Field>
             <Hr />
           </DialogContent>
@@ -96,7 +113,7 @@ const Dashboard = () => {
         toggle={toggle}
       />
       <DashboardContainer>
-        <Button primary="true" onClick={showProfile}>
+        <Button primary="true" dark="true" onClick={showProfile}>
           My Profile
         </Button>
         <ProfileData open={show} close={showProfile} />

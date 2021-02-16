@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export const ErrMsg = styled.p`
-display: ${({show}) => (show ? 'block': 'none')};
+export const ErrMsg = styled.span`
 color: red;
 margin-top: -25px;
 font-size: small;

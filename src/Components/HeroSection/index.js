@@ -33,7 +33,7 @@ const HeroSection = () => {
               <HeroHr></HeroHr>
           </HeroH2>
           <HeroH1>Enjoy Swift delivery</HeroH1>
-          <HeroP>Send and Recieve your goods, without stress</HeroP>
+          <HeroP>Send and Receive your goods, without stress!</HeroP>
           <HeroBtnWrapper>
             <RouteButton
               to='/signup'

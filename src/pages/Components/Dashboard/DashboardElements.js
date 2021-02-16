@@ -52,16 +52,15 @@ export const ProfileInfo = styled.div`
 
 export const Field = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: .5fr 1fr;
   color: black;
-  align-items: flex-start;
-  justify-content: start;
+  justify-items: start;
   width: 100%;
-  padding: 10px;
+  padding: 10px 0;
 `;
 
 export const Hr = styled.hr`
-  color: limegreen;
+  color: wheat;
 `;
 
 export const UserTable = styled.div`

@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 function FormHandler() {
-  const { register, handleSubmit, errors, control, reset } = useForm();
+  const { handleSubmit, errors, control, watch, reset } = useForm({
+    criteriaMode: 'all',
+  });
 
   const [phone, setPhone] = useState();
 
@@ -47,7 +49,6 @@ function FormHandler() {
   };
 
   return {
-    register,
     handleChange,
     handleSubmit,
     values,
@@ -57,6 +58,7 @@ function FormHandler() {
     Controller,
     phone,
     setPhone,
+    watch,
     control,
   };
 }

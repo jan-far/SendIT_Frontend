@@ -6,7 +6,7 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import LocationSearchInput from '../../../Components/GooglePlace';
 import { post_request } from '../../../Services/utils/fetch';
 import { Error } from '../../../Services/FormHandler/validateInfo';
-import { setCookie } from '../../../Services/utils/helpers'
+import { setCookie } from '../../../Services/utils/helpers';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -27,13 +27,13 @@ import {
 import { UserContext } from '../../../Contexts/User';
 import NotificationToast from '../../../Components/Toast';
 
-const logo  = './images/logo.jpg';
+const logo = './images/logo.jpg';
 
 const SignUp = () => {
-  const { setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const {
-    register,
+    watch,
     handleSubmit,
     handleChange,
     values,
@@ -56,16 +56,15 @@ const SignUp = () => {
     try {
       const req = await post_request(data, '/auth/signup');
       const response = await req.json();
-      console.log(response);
 
       if (response === undefined || req.status === 400) {
-        NotificationToast.error(`${response.message}`)
-        setLoading(false)
+        NotificationToast.error(`${response.message}`);
+        setLoading(false);
       } else {
         NotificationToast.success(`${response.message}`);
         setLoading(false);
-        setCookie('session_', response.Token)
-        setUser({})
+        setCookie('session_', response.Token);
+        setUser({});
 
         setTimeout(() => {
           history.push('/dashboard');
@@ -85,6 +84,16 @@ const SignUp = () => {
     return phone && compare;
   };
 
+  const checkPassword = (pass) => {
+    const passme = watch('password')
+    const passKey = pass
+      ? passme !== pass
+        ? 'Passwords are not the same'
+        : undefined
+      : 'Password Confirmation is required';
+    return pass && passKey;
+  };
+
   return (
     <>
       <Container>
@@ -95,14 +104,19 @@ const SignUp = () => {
           </Icon>
           <FormContent>
             <Form action="#" onSubmit={handleSubmit(onSubmit)}>
-              <FormH1>Sign in to your account</FormH1>
+              <FormH1>SignUp An Account!</FormH1>
               <FormLabel htmlFor="for">First Name</FormLabel>
-              <FormInput
+              <Controller
                 name="firstname"
-                type="text"
-                value={firstname}
-                placeholder="Enter Your First Name"
-                ref={register({
+                as={
+                  <FormInput
+                    type="text"
+                    value={firstname}
+                    placeholder="Enter Your First Name"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'First name Cannot be empty!',
                   minLength: {
                     value: 2,
@@ -112,18 +126,24 @@ const SignUp = () => {
                     value: 20,
                     message: 'Name too long, max of 20 characters',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                defaultValue=""
+                control={control}
               />
               {Error(errors, 'firstname')}
-  
+
               <FormLabel htmlFor="for">Last Name</FormLabel>
-              <FormInput
+              <Controller
                 name="lastname"
-                type="text"
-                value={lastname}
-                placeholder="Enter Your Last Name"
-                ref={register({
+                as={
+                  <FormInput
+                    type="text"
+                    value={lastname}
+                    placeholder="Enter Your Last Name"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'Fast name Cannot be empty!',
                   minLength: {
                     value: 2,
@@ -133,52 +153,78 @@ const SignUp = () => {
                     value: 20,
                     message: 'Name too long, max of 20 characters',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                defaultValue=""
+                control={control}
               />
               {Error(errors, 'lastname')}
 
               <FormLabel htmlFor="for">Email</FormLabel>
-              <FormInput
+              <Controller
                 name="email"
-                type="email"
-                value={email}
-                placeholder="Enter Your Email Address"
-                ref={register({
+                as={
+                  <FormInput
+                    type="email"
+                    value={email}
+                    placeholder="Enter Your Email Address"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'Email field is required',
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'invalid email address',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                defaultValue=""
+                control={control}
               />
               {Error(errors, 'email')}
+
               <FormLabel htmlFor="for">Password</FormLabel>
-              <FormInput
+              <Controller
                 name="password"
-                type="password"
-                value={password}
-                placeholder="Enter Your Password"
-                ref={register({
+                as={
+                  <FormInput
+                    value={password}
+                    type="password"
+                    placeholder="Enter Your Password"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'Password field is required',
                   minLength: {
                     value: 7,
                     message: 'Password must be of atleast 7 characters',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                defaultValue=""
+                control={control}
               />
               {Error(errors, 'password')}
+
               <FormLabel htmlFor="for">Repeat Password</FormLabel>
-              <FormInput
+              <Controller
                 name="confirm password"
-                type="password"
-                value={password}
-                placeholder="Re-enter Your Password"
-                ref={register}
-                onChange={handleChange}
+                as={
+                  <FormInput
+                    type="password"
+                    value={values['confirm password']}
+                    placeholder="Re-enter Your Password"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
+                  required: 'Password Confirmation required',
+                  validate: { checkPassword },
+                }}
+                defaultValue=""
+                control={control}
               />
+              {Error(errors, 'confirm password')}
+
               <FormLabel htmlFor="for">Phone</FormLabel>
               <Controller
                 name="phone"
@@ -221,7 +267,9 @@ const SignUp = () => {
                 {loading ? <Spinner /> : 'SignIn'}
               </FormButton>
               <Text>Forgot Password?</Text>
-              <Text2>Already have an account? <Goto to='/signin'>SignIn</Goto></Text2>
+              <Text2>
+                Already have an account? <Goto to="/signin">SignIn</Goto>
+              </Text2>
             </Form>
           </FormContent>
         </FormWrapper>

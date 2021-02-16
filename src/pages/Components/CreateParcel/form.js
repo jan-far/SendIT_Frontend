@@ -34,7 +34,6 @@ const Forms = ({ show, create, close }) => {
 
   const {
     Controller,
-    register,
     values,
     reset,
     resetInput,
@@ -96,15 +95,18 @@ const Forms = ({ show, create, close }) => {
 
             <Form action="#" onSubmit={handleSubmit(submitForm)}>
               <FormLabel htmlFor="for">Recipient</FormLabel>
-              <FormInput
+              <Controller
                 name="recipient"
-                type="recipient"
-                value={recipient}
-                placeholder="Enter Recipient Name"
-                ref={register({
-                  required: 'Recipient field is required',
-                })}
-                onChange={handleChange}
+                as={
+                  <FormInput
+                    type="recipient"
+                    value={recipient}
+                    placeholder="Enter Recipient Name"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{ required: 'Recipient field is required' }}
+                control={control}
               />
               {Error(errors, 'recipient')}
 
@@ -125,12 +127,17 @@ const Forms = ({ show, create, close }) => {
               {Error(errors, 'destination')}
 
               <FormLabel htmlFor="for">Weight (Kg)</FormLabel>
-              <FormInput
+              <Controller
                 name="weight"
-                type="number"
-                value={weight}
-                placeholder="Enter Weight"
-                ref={register({
+                as={
+                  <FormInput
+                    type="number"
+                    value={weight}
+                    placeholder="Enter Weight"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'Destination field is required',
                   max: {
                     value: 300,
@@ -140,8 +147,8 @@ const Forms = ({ show, create, close }) => {
                     value: 10,
                     message: 'Weight capacity must be above 10Kg',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                control={control}
               />
               {Error(errors, 'weight')}
 

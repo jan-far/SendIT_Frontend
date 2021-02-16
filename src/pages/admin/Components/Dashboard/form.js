@@ -74,7 +74,7 @@ export const UpdateParcel = ({ data, editing, closeEdit, submitEdit }) => {
             />
 
             <FormLabel htmlFor="for">Phone Number</FormLabel>
-            <FormInput name="phone" type="number" value={data.phone} disabled />
+            <FormInput name="phone" type="text" value={data.phone} disabled />
 
             <FormLabel htmlFor="for">Location</FormLabel>
             <Controller

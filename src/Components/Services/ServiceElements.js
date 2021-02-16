@@ -75,9 +75,11 @@ margin-bottom: 64px;
 export const ServicesH2 = styled.h2`
 font-size: 1rem;
 margin-bottom: 10px;
+color: whitesmoke;
 `
 
 export const ServicesP =styled.p`
 font-size: 1.1rem;
 text-align: center;
+color: aliceblue;
 `

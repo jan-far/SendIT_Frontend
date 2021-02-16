@@ -136,12 +136,11 @@ export const NavBtnLink = styled(LinkR)`
 
 export const User = styled.div`
   display: flex;
-  flex-direction: row;
+  position: relative;
   place-items: center center;
   background: transparent;
   padding: 10px;
-  margin-left: 10px;
-  border-radius: 20px;
+  margin: 0 25px 0 0;
 
   @media screen and (max-width: 480px) {
     display: none;

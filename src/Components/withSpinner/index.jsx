@@ -1,9 +1,9 @@
 import React from 'react';
 import { SpinnerContainer, SpinnerOverlay } from './withSpinnerElements';
 
-const withSpinner = (WrappedComponent) => ({ isLoading, ...otherProps }) => {
+const withSpinner = (WrappedComponent) => ({ stay, isLoading, ...otherProps }) => {
   return isLoading ? (
-    <SpinnerOverlay>
+    <SpinnerOverlay stay={stay ? 'true' : null}>
       <SpinnerContainer />
     </SpinnerOverlay>
   ) : (

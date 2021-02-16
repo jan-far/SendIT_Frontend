@@ -24,17 +24,18 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../Contexts/User';
 import NotificationToast from '../../../Components/Toast';
 
-const logo  = './images/logo.jpg';
+const logo = './images/logo.jpg';
 
 const SignInPage = () => {
   const [loading, setLoading] = useState(false);
-  const { setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext);
 
   const {
-    register,
     handleSubmit,
     handleChange,
     values,
+    control,
+    Controller,
     resetInput,
     errors,
   } = FormHandler();
@@ -44,7 +45,7 @@ const SignInPage = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    clearCookie()
+    clearCookie();
     resetInput();
     try {
       const req = await post_request(data, '/auth/signin');
@@ -56,7 +57,7 @@ const SignInPage = () => {
       } else {
         setCookie('session_', response.Profile.token, 1);
         NotificationToast.success(`${response.message}`);
-        setUser({...response.Profile})
+        setUser({ ...response.Profile });
         setLoading(false);
 
         setTimeout(() => {
@@ -80,36 +81,48 @@ const SignInPage = () => {
             <Form action="#" onSubmit={handleSubmit(onSubmit)}>
               <FormH1>Sign in to your account</FormH1>
               <FormLabel htmlFor="for">Email</FormLabel>
-              <FormInput
+              <Controller
                 name="email"
-                type="email"
-                value={email}
-                placeholder="Enter Your Email Address"
-                ref={register({
+                as={
+                  <FormInput
+                    type="email"
+                    value={email}
+                    placeholder="Enter Your Email Address"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'Email field is required',
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'Invalid email address',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                defaultValue=""
+                control={control}
               />
               {Error(errors, 'email')}
 
               <FormLabel htmlFor="for">Password</FormLabel>
-              <FormInput
+              <Controller
                 name="password"
-                type="password"
-                value={password}
-                placeholder="Enter Your Password"
-                ref={register({
+                as={
+                  <FormInput
+                    type="password"
+                    value={password}
+                    placeholder="Enter Your Password"
+                    onChange={handleChange}
+                  />
+                }
+                rules={{
                   required: 'Password field is required',
                   minLength: {
                     value: 7,
                     message: 'Password must be of atleast 7 characters',
                   },
-                })}
-                onChange={handleChange}
+                }}
+                defaultValue=""
+                control={control}
               />
               {Error(errors, 'password')}
 

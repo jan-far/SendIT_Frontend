@@ -21,11 +21,27 @@ import { UserContext } from '../../Contexts/User';
 import { RouteButton } from '../ButtonElements';
 import { Avatar, Zoom } from '@material-ui/core';
 import { UserDetails } from '../UserNav/UserNavElements';
+import withSpinner from '../withSpinner';
 const logo = './images/logo.jpg';
+
+const UserInfo = ({user}) => {
+  return (
+    <>
+      <Zoom in={true}>
+        <Avatar alt="user logo" style={{ color: 'green' }}>
+          {`${user.firstname}`[0]}
+        </Avatar>
+      </Zoom>
+      <UserDetails light="true">{user.firstname}</UserDetails>
+    </>
+  );
+};
+
+const UserInfoWithSpinner = withSpinner(UserInfo)
 
 const Navbar = () => {
   const { toggle } = useContext(HomepageContext);
-  const { user } = useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
   const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {
@@ -97,14 +113,7 @@ const Navbar = () => {
           </NavMenu>
           {user ? (
             <User>
-              <>
-                <Zoom in={true}>
-                  <Avatar alt="user logo" style={{ color: 'green' }}>
-                    {`${user.firstname}`[0]}
-                  </Avatar>
-                </Zoom>
-                <UserDetails light="true">{user.firstname}</UserDetails>
-              </>
+              <UserInfoWithSpinner stay isLoading={isLoading} user={user} />
             </User>
           ) : (
             <NavBtn>
