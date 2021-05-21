@@ -103,6 +103,10 @@ const Dashboard = () => {
     );
   };
 
+  React.useEffect(() => {
+    document.title = "Dashboard";
+  }, []);
+
   return (
     <>
       <UserNav
@@ -113,7 +117,7 @@ const Dashboard = () => {
         toggle={toggle}
       />
       <DashboardContainer>
-        <Button primary="true" dark="true" onClick={showProfile}>
+        <Button to="/" primary="true" dark="true" onClick={showProfile}>
           My Profile
         </Button>
         <ProfileData open={show} close={showProfile} />

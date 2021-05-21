@@ -20,6 +20,7 @@ const SignInPage = LoadComponents('Signin');
 const SignUpPage = LoadComponents('Signup');
 const Dashboard = LoadComponents('Dashboard');
 const CreateParcel = LoadComponents('CreateParcel');
+const Error404 = LoadComponents('Error404');
 
 const AdminAuth = AdminLoadComponents('SignIn');
 const AdminDashboard = AdminLoadComponents('Dashboard');
@@ -72,8 +73,8 @@ const Pages = () => {
           </Suspense>
         </Route>
 
-        <AdminProvider>
-          <Route path="/admin/dashboard">
+        <Route path="/admin/dashboard">
+          <AdminProvider>
             <Suspense fallback={<Loading />}>
               <AdminRoute>
                 <CreateParcelProvider>
@@ -81,8 +82,14 @@ const Pages = () => {
                 </CreateParcelProvider>
               </AdminRoute>
             </Suspense>
-          </Route>
-        </AdminProvider>
+          </AdminProvider>
+        </Route>
+
+        <Route path="*">
+          <Suspense fallback={<Loading />}>
+            <Error404 />
+          </Suspense>
+        </Route>
       </Switch>
     </>
   );

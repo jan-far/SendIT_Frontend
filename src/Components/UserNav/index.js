@@ -39,7 +39,6 @@ const UserNav = ({
 }) => {
   const { user } = useContext(UserContext);
   const [show, setShow] = useState(false);
-
   const logout = () => {
     clearCookie();
   };

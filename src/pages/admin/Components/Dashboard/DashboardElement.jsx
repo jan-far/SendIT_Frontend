@@ -57,14 +57,14 @@ to{
 
 export const AdminContainer = styled.div`
   display: grid;
-  grid-auto-columns: minmax(auto, 1fr);
+  /* grid-auto-columns: minmax(auto, 1fr); */
   grid-template-columns: repeat(autofit, minmax(.4fr, 1fr));
   overflow: hidden;
   grid-template-areas: 'col1 col2 col2 col2';
   ${neumorphic}
 
   @media screen and (min-width: 968px) {
-    grid-template-areas: 'col1' 'col2 col2';
+    grid-template-areas: "'col1' 'col2 col2'";
   }
 
   @media screen and (max-width: 800px) {
@@ -78,7 +78,7 @@ export const Column1 = styled.div`
   /* grid-column: 1; */
   grid-area: col1;
   width: 100%;
-
+  /* @media screen and (max-width: ) */
 `;
 
 export const Column2 = styled.div`

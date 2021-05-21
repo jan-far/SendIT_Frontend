@@ -41,22 +41,28 @@ const Footer = () => {
           <FooterLinksWrapper>
             <FooterLinksItems>
               <FooterLinkTitle>Contact Us</FooterLinkTitle>
-              <FooterLink to="#">
+              <FooterLink href="#">
                 Plot 111, Musa Aliro close, Maitama, Abuja.
               </FooterLink>
-              <FooterLink to="#">(+234)818-716-1673</FooterLink>
-              <FooterLink to="#">contact@SendIT.com</FooterLink>
-              <FooterLink to="#">reservation@SendIT.com</FooterLink>
+              <FooterLink href="tel:(+234)818-716-1673" to="#">
+                (+234)818-716-1673
+              </FooterLink>
+              <FooterLink href="mailto:contact@SendIT.com">
+                contact@SendIT.com
+              </FooterLink>
+              <FooterLink href="mailto:reservation@SendIT.com">
+                reservation@SendIT.com
+              </FooterLink>
             </FooterLinksItems>
           </FooterLinksWrapper>
           <FooterLinksWrapper>
             <FooterLinksItems>
               <FooterLinkTitle>About Us</FooterLinkTitle>
-              <FooterLink to="/">Join Us</FooterLink>
-              <FooterLink to="/">Testimonials</FooterLink>
-              <FooterLink to="/">Careers</FooterLink>
-              <FooterLink to="/">Investors</FooterLink>
-              <FooterLink to="/">Terms of services</FooterLink>
+              <FooterLink href="#">Join Us</FooterLink>
+              <FooterLink href="#">Testimonials</FooterLink>
+              <FooterLink href="#">Careers</FooterLink>
+              <FooterLink href="#">Investors</FooterLink>
+              <FooterLink href="#">Terms of services</FooterLink>
             </FooterLinksItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>

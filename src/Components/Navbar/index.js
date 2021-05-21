@@ -24,7 +24,7 @@ import { UserDetails } from '../UserNav/UserNavElements';
 import withSpinner from '../withSpinner';
 const logo = './images/logo.jpg';
 
-const UserInfo = ({user}) => {
+const UserInfo = ({ user }) => {
   return (
     <>
       <Zoom in={true}>
@@ -37,7 +37,7 @@ const UserInfo = ({user}) => {
   );
 };
 
-const UserInfoWithSpinner = withSpinner(UserInfo)
+const UserInfoWithSpinner = withSpinner(UserInfo);
 
 const Navbar = () => {
   const { toggle } = useContext(HomepageContext);

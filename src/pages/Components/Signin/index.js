@@ -69,6 +69,10 @@ const SignInPage = () => {
     }
   };
 
+  React.useEffect(() => {
+    document.title = "Sign In";
+  }, []);
+
   return (
     <>
       <Container>

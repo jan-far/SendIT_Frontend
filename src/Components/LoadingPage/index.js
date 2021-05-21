@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { BodyColor, Loader1, Loader2, LoaderFrame, Logo, LogoP, Preload, PreloadWrapper } from './LoadingElements';
 
 const LoadingSpinner = () => {
   return (
     <>
-      <BodyColor Background/>
+      <BodyColor Background />
       <Preload>
         <PreloadWrapper>
           <Logo>
@@ -17,7 +17,7 @@ const LoadingSpinner = () => {
         </PreloadWrapper>
       </Preload>
     </>
-  )
-}
+  );
+};
 
-export default LoadingSpinner
+export default LoadingSpinner;

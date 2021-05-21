@@ -206,6 +206,10 @@ const CreateParcel = () => {
     );
   };
 
+  React.useEffect(() => {
+    document.title = "Create Parcel";
+  }, []);
+
   return (
     <>
       <EditParcel

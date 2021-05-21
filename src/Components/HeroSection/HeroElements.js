@@ -53,7 +53,7 @@ background: #232a34;
 
 export const HeroContent = styled.div`
 z-index: 3;
-max-width: 1200px;
+/* max-width: 1680px; */
 position: absolute;
 padding: 8px 24px;
 display: flex;

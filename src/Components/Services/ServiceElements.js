@@ -1,4 +1,18 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+
+const darkMode = css`
+color: aliceblue;
+background: #010606;
+`
+
+const lightMode = css`
+color: black;
+background: whitesmoke;
+`
+
+const modeColor = ({theme}) => {
+  return theme.mode === "light" ? lightMode : darkMode;
+}
 
 export const ServicesContainer = styled.div`
 height: 800px;
@@ -6,7 +20,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-background: #010606;
+${modeColor}
 
 @media screen and (max-width: 768px) {
   height: 1100px;
@@ -18,7 +32,7 @@ height: 1300px;
 `
 
 export const ServicesWrapper = styled.div`
-max-width: 1000px;
+max-width: 1680px;
 margin: 0 auto;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
@@ -27,7 +41,7 @@ grid-gap: 16px;
 padding: 0 50px;
 
 @media screen and (max-width: 1000px) {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(.5fr, 1fr));
 }
 
 @media screen and (max-width: 768px) {
@@ -37,7 +51,7 @@ padding: 0 50px;
 `
 
 export const ServicesCard = styled.div`
-background: green;
+background: ${({theme}) => theme.mode === 'dark' ? 'darkgreen' : 'green'};
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -53,19 +67,22 @@ transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
+
+@media screen and (min-width: 1000px) {
+  height: 300px!important;
+}
 `
 
 export const ServicesIcon = styled.img`
 height: 160px;
 width: 160px;
 margin-bottom: 10px;
-/* background-color: rgb(167, 164, 164); */
 `
 
 export const ServicesH1 = styled.h1`
 font-size: 2.5rem;
-color: #fff;
 margin-bottom: 64px;
+${modeColor}
 
 @media screen and (max-width: 480px) {
   font-size: 2rem;

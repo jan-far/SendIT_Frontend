@@ -94,6 +94,10 @@ const SignUp = () => {
     return pass && passKey;
   };
 
+  React.useEffect(() => {
+    document.title = "Sign Up";
+  }, []);
+
   return (
     <>
       <Container>

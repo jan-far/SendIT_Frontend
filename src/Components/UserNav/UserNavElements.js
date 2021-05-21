@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export const NavHeader = styled.div`
-  background: #101569;
+  background: #101540;
   height: 80px;
   display: grid;
   grid-template-columns: 0.4fr 1fr;

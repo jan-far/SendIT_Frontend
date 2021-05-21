@@ -1,8 +1,24 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const gradient = `linear-gradient(#39598A, #2a3f44)`;
+
+const darkMode = css`
+  color: aliceblue;
+  background: ${({ theme }) => theme.gradient};
+`;
+
+const lightMode = css`
+  color: black;
+  background: ${gradient};
+`;
+
+const modeColor = ({ theme }) => {
+  return theme.mode === 'light' ? lightMode : darkMode;
+};
+
 export const FooterContainer = styled.footer`
-  background-color: #101522;
+  ${modeColor}
 `;
 
 export const FooterWrap = styled.div`
@@ -67,14 +83,15 @@ export const FooterLinkTitle = styled.h1`
   font-size: 14px;
   margin-bottom: 16px;
 `;
-export const FooterLink = styled(Link)`
+
+export const FooterLink = styled.a`
   color: #fff;
   text-decoration: none;
   margin-bottom: 0.5rem;
   font-size: 14px;
 
   &:hover {
-    color: #01bf71;
+    color: ${({ theme }) => (theme.mode === 'light' ? theme.text : '#01bf71')};
     transition: 0.3s ease-out;
   }
 `;

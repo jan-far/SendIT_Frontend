@@ -4,6 +4,7 @@ import LocationSearchInput from '../../../../Components/GooglePlace';
 import FormHandler from '../../../../Services/FormHandler';
 import { Form, FormLabel, FormInput, FabButtons } from './DashboardElement';
 import { Error } from '../../../../Services/FormHandler/validateInfo';
+import  {withTheme} from 'styled-components';
 import {
   Dialog,
   DialogContent,
@@ -13,7 +14,7 @@ import {
   Select,
 } from '@material-ui/core';
 
-export const UpdateParcel = ({ data, editing, closeEdit, submitEdit }) => {
+const UpdateParcel = ({theme, data, editing, closeEdit, submitEdit }) => {
   const {
     values,
     handleChange,
@@ -23,6 +24,7 @@ export const UpdateParcel = ({ data, editing, closeEdit, submitEdit }) => {
     errors,
   } = FormHandler();
   const { location } = values;
+  console.log("loaded")
 
   const useStyles = makeStyles({
     dialogContent: {
@@ -135,3 +137,5 @@ export const UpdateParcel = ({ data, editing, closeEdit, submitEdit }) => {
     </>
   );
 };
+
+export default withTheme(UpdateParcel)

@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const button_loading = keyframes`
@@ -30,6 +30,13 @@ export const Spinner = styled.div`
   }
 `;
 
+const customBackground = `linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, #101545 100%),
+    linear-gradient(180deg, #101540 0%, transparent 100%)`;
+
+const customColor = css`
+  color: ${({ theme }) => (theme.mode === 'light' ? '#0e0e2b' : 'white')};
+`;
+
 export const Container = styled.div`
   min-height: 692px;
   position: relative;
@@ -45,17 +52,8 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-
-  :before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, #101545 100%),
-      linear-gradient(180deg, #101540 0%, transparent 100%);
-  }
+  background: ${({ theme }) =>
+    theme.mode === 'light' ? 'whitesmoke' : customBackground};
 
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -91,7 +89,7 @@ export const Icon = styled(Link)`
 
   @media screen and (max-width: 480px) {
     margin: 8px 0 15px 16px;
-  } ;
+  }
 
   @media screen and (max-width: 375px) {
     margin-bottom: 15px;
@@ -107,7 +105,7 @@ export const FormContent = styled.div`
 
   @media screen and (max-width: 480px) {
     padding: 10px;
-  } ;
+  }
 
   @media screen and (max-width: 375px) {
     margin-top: 10px;
@@ -116,7 +114,8 @@ export const FormContent = styled.div`
 
 export const Form = styled.form`
   display: grid;
-  background: #010130;
+  background: ${({ theme }) =>
+    theme.mode === 'light' ? theme.gradient : '#010125'};
   max-width: 500px;
   height: auto;
   width: 100%;
@@ -133,7 +132,7 @@ export const Form = styled.form`
 
 export const FormH1 = styled.h1`
   margin-bottom: 40px;
-  color: #fff;
+  ${customColor}
   font-size: 20px;
   font-weight: 400;
   text-align: center;
@@ -142,7 +141,7 @@ export const FormH1 = styled.h1`
 export const FormLabel = styled.label`
   font-size: 14px;
   margin-bottom: 8px;
-  color: white;
+  ${customColor}
 `;
 
 export const FormInput = styled.input`
@@ -150,35 +149,44 @@ export const FormInput = styled.input`
   padding: 16px;
   border: none;
   margin-bottom: 32px;
+  background: ${({ theme }) =>
+    theme.mode === 'light' ? 'aliceblue' : 'white'};
+
+  &::placeholder {
+    color: ${({ theme }) => (theme.mode === 'light' ? 'black' : 'black')};
+  }
 `;
 
 export const FormButton = styled.button`
   position: relative;
-  background: #01bf71;
+  background: ${({ theme }) =>
+    theme.mode === 'light' ? '#046e46' : '#01bf61'};
   padding: 16px 0;
   border: none;
   border-radius: 4px;
   font-size: 20px;
   cursor: pointer;
-  align-self: center;
+  color: ${({ theme }) => (theme.mode === 'light' ? 'aliceblue' : '#1b1111')};
 
   &:hover {
-    color: white;
-    background-color: #01bf61;
+    background: ${({ theme }) =>
+      theme.mode === 'light' ? '#01bf61' : '#046e46'};
+    color: ${({ theme }) =>
+      theme.mode === 'light' ? '#0e0e2b' : 'whitesmoke'};
   }
 `;
 
 export const Text = styled.span`
   text-align: center;
   margin-top: 24px;
-  color: white;
+  ${customColor}
   font-size: 14px;
 `;
 
 export const Text2 = styled.span`
   text-align: center;
   margin-top: 24px;
-  color: white;
+  ${customColor}
   font-size: 11px;
 `;
 
@@ -189,6 +197,6 @@ export const Goto = styled(Link)`
   font-weight: bold;
 
   &:hover {
-    color: white;
+    ${customColor}
   }
 `;

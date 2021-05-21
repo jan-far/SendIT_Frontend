@@ -7,11 +7,13 @@ import Navbar from '../../../Components/Navbar';
 import Services from '../../../Components/Services';
 import Sidebar from '../../../Components/Sidebar';
 import HomepageProvider from '../../../Contexts/Homepage';
-import UserProvider from '../../../Contexts/User';
 
 const HomePage = () => {
+  React.useEffect(() => {
+    document.title = "SendIT";
+  }, []);
+
   return (
-    <UserProvider>
       <HomepageProvider>
         <Sidebar />
         <Navbar />
@@ -20,7 +22,6 @@ const HomePage = () => {
         <Services />
         <Footer />
       </HomepageProvider>
-    </UserProvider>
   );
 };
 

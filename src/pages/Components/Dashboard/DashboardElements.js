@@ -12,8 +12,9 @@ export const DashboardContainer = styled.div`
   top: 0;
   z-index: 0;
   height: 100vh;
+  /* background: ${({theme}) => theme.body}; */
 
-  :before {
+  /* :before {
     content: '';
     position: absolute;
     top: 0;
@@ -23,7 +24,7 @@ export const DashboardContainer = styled.div`
     background: linear-gradient(to left bottom, rgba(0, 0, 0, 0.1), #101500),
       linear-gradient(to bottom right, #101550, #101505);
     z-index: -100;
-  }
+  } */
 `;
 
 export const ProfileInfo = styled.div`
